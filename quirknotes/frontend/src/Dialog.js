@@ -59,23 +59,23 @@ function Dialog({open, initialNote, closeDialog, postNote: postNoteState}) {
     }
 
     return (
-        <dialog open={open} style={{width: "75%"}}>
+        <dialog open={open} style={DialogStyle.dialog}>
             <input
                 placeholder="Your note title goes here!"
                 type="text"
                 value={note.title}
                 maxLength={30}
-                style={{fontSize: "40px", display: "block", width: "100%"}}
+                style={DialogStyle.title}
                 onChange={(e) => setNote({...note, title: e.target.value})}
             />
             <textarea
                 placeholder="Your note content goes here!"
                 value={note.content}
                 rows={5}
-                style={{fontSize: "20px", display: "block", width: "100%"}}
+                style={DialogStyle.content}
                 onChange={(e) => setNote({...note, content: e.target.value})}
             />
-            <div style={{display: "flex", justifyContent: "space-between", gap: "10px"}}>
+            <div style={DialogStyle.buttonWrapper}>
                 <button
                     onClick={initialNote ? patchNote : postNote}
                     disabled={!note.title || !note.content}>
@@ -83,7 +83,7 @@ function Dialog({open, initialNote, closeDialog, postNote: postNoteState}) {
                 </button>
                 {status}
                 <button
-                    style={{justifySelf: "end"}}
+                    style={DialogStyle.closeButton}
                     onClick={() => close()}
                 >
                     Close
@@ -95,3 +95,23 @@ function Dialog({open, initialNote, closeDialog, postNote: postNoteState}) {
 }
 
 export default Dialog;
+
+const DialogStyle = {
+    dialog: {width: "75%"},
+    title: {
+        fontSize: "40px", 
+        display: "block", 
+        width: "100%"
+    },
+    content: {
+        fontSize: "20px", 
+        display: "block", 
+        width: "100%"
+    },
+    buttonWrapper: {
+        display: "flex", 
+        justifyContent: "space-between", 
+        gap: "10px"
+    },
+    closeButton: {justifySelf: "end"}
+}

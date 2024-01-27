@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react"
 import './App.css';
 import Dialog from "./Dialog";
+import Note from "./Note";
 
 function App() {
 
@@ -75,6 +76,10 @@ function App() {
     // Code for modifying state after DELETE here
   }
 
+  const deleteAllNotesState = () => {
+    // Code for modifying state after DELETE all here
+  }
+
   const patchNoteState = (_id, title, content) => {
     // Code for modifying state after PATCH here
   }
@@ -82,32 +87,25 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <div style={dialogOpen ? {opacity: "20%", pointerEvents: "none"} : {}}>
+        <div style={dialogOpen ? AppStyle.dimBackground : {}}>
           <h1 style={AppStyle.title}>QuirkNotes</h1>
           <h4 style={AppStyle.text}>The best note-taking app ever </h4>
 
-          <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: "center"}}>
+          <div style={AppStyle.notesSection}>
             {loading ?
             <>Loading...</>
             : 
             notes ?
             notes.map((entry) => {
-              return (<div key={entry._id} style={AppStyle.note}>
-                <p style={AppStyle.text}>{entry.title}</p>
-                <button
-                  onClick={() => editNote(entry)}>
-                    Edit note
-                </button>
-                {<button
-                  onClick={() => deleteNote(entry)}
-                  >
-                    Delete note
-                  </button>}
-                
-              </div>)
+              return (
+              <Note
+                entry={entry} 
+                editNote={editNote} 
+                deleteNote={deleteNote}
+                />)
             })
             :
-            <div style={{color: "red"}}>
+            <div style={AppStyle.notesError}>
               Something has gone horribly wrong!
               We can't get the notes!
             </div>
@@ -116,7 +114,9 @@ function App() {
 
           <button onClick={postNote}>Post Note</button>
           {notes && notes.length > 0 && 
-          <button onClick={deleteAllNotes}>
+          <button
+              onClick={deleteAllNotes}
+              >
               Delete All Notes
           </button>}
 
@@ -138,23 +138,20 @@ function App() {
 export default App;
 
 const AppStyle = {
+  dimBackground: {
+    opacity: "20%", 
+    pointerEvents: "none"
+  },
+  notesSection: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: "center"
+  },
+  notesError: {color: "red"},
   title: {
     margin: "0px"
   }, 
   text: {
     margin: "0px"
-  }, 
-  note: {
-    padding: '20px',
-    margin: '20px',
-    width: '200px',
-    borderStyle: 'dotted',
-    borderRadius: '30px',
-    borderWidth: 'thin',
-    overflowWrap: "break-word"
-  },
-  noteText: {
-    display: 'flex',
-    alignItems: 'center',
-  },
+  }
 }
