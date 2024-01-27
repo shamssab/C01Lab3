@@ -98,11 +98,14 @@ function App() {
             notes ?
             notes.map((entry) => {
               return (
-              <Note
+              <div key={entry._id}>
+                <Note
                 entry={entry} 
                 editNote={editNote} 
                 deleteNote={deleteNote}
-                />)
+                />
+              </div>
+              )
             })
             :
             <div style={AppStyle.notesError}>

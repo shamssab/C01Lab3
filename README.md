@@ -126,7 +126,7 @@ import "./App.css";
 
 const Note = ({ entry, editNote, deleteNote }) => {
   return (
-    <div key={entry._id} style={NoteStyle.note}>
+    <div style={NoteStyle.note}>
       <p style={NoteStyle.text}>{entry.title}</p>
       <button onClick={() => editNote(entry)}>Edit note</button>
       {<button onClick={() => deleteNote(entry)}>Delete note</button>}
@@ -338,7 +338,11 @@ Now if you reload your page, you shouldn't see any difference since haven't yet 
     <>Loading...</>
   ) : notes ? (
     notes.map((entry) => {
-      return <Note entry={entry} editNote={editNote} deleteNote={deleteNote} />;
+      return (
+        <div key={entry._id}>
+          <Note entry={entry} editNote={editNote} deleteNote={deleteNote} />
+        </div>
+      );
     })
   ) : (
     <div style={AppStyle.notesError}>
@@ -418,11 +422,13 @@ function App() {
           ) : notes ? (
             notes.map((entry) => {
               return (
-                <Note
-                  entry={entry}
-                  editNote={editNote}
-                  deleteNote={deleteNote}
-                />
+                <div key={entry._id}>
+                  <Note
+                    entry={entry}
+                    editNote={editNote}
+                    deleteNote={deleteNote}
+                  />
+                </div>
               );
             })
           ) : (
@@ -698,11 +704,13 @@ function App() {
             ) : notes ? (
               notes.map((entry) => {
                 return (
-                  <Note
-                    entry={entry}
-                    editNote={editNote}
-                    deleteNote={deleteNote}
-                  />
+                  <div key={entry._id}>
+                    <Note
+                      entry={entry}
+                      editNote={editNote}
+                      deleteNote={deleteNote}
+                    />
+                  </div>
                 );
               })
             ) : (

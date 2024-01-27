@@ -3,7 +3,7 @@ import './App.css';
 const Note = ({entry, editNote, deleteNote}) => {
 
     return (
-        <div key={entry._id} style={NoteStyle.note}>
+        <div style={NoteStyle.note}>
             <p style={NoteStyle.text}>{entry.title}</p>
                 <button
                     onClick={() => editNote(entry)}
